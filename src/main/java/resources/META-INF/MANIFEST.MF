@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Class-Path: netty-resolver-4.1.54.Final.jar mybatis-spring-1.3.2.jar o
+ pentracing-noop-0.33.0.jar spring-boot-starter-2.4.0.jar netty-handle
+ r-4.1.54.Final.jar spring-data-commons-2.4.1.jar netty-common-4.1.54.
+ Final.jar spring-boot-starter-data-redis-2.0.5.RELEASE.jar jedis-2.8.
+ 1.jar jackson-datatype-jdk8-2.11.3.jar commons-pool2-2.9.0.jar jackso
+ n-core-2.11.3.jar jakarta.annotation-api-1.3.5.jar opentracing-util-0
+ .33.0.jar lettuce-core-6.0.1.RELEASE.jar reactive-streams-1.0.3.jar s
+ pring-webmvc-5.3.1.jar ini4j-0.5.4.jar spring-boot-autoconfigure-2.4.
+ 0.jar httpclient-4.5.13.jar jul-to-slf4j-1.7.30.jar gson-2.8.6.jar sp
+ ring-boot-starter-json-2.4.0.jar jackson-databind-2.11.3.jar tomcat-e
+ mbed-websocket-9.0.39.jar HikariCP-3.4.5.jar logback-classic-1.2.3.ja
+ r validation-api-2.0.1.Final.jar mybatis-spring-boot-starter-1.3.2.ja
+ r spring-beans-5.3.1.jar mybatis-generator-core-1.3.5.jar tomcat-embe
+ d-core-9.0.39.jar spring-tx-5.3.1.jar spring-jcl-5.3.1.jar jaxb-api-2
+ .3.1.jar spring-boot-2.4.0.jar log4j-api-2.13.3.jar mybatis-spring-bo
+ ot-autoconfigure-1.3.2.jar jackson-annotations-2.11.3.jar snakeyaml-1
+ .27.jar spring-boot-starter-web-2.4.0.jar netty-buffer-4.1.54.Final.j
+ ar spring-context-support-5.3.1.jar spring-core-5.3.1.jar druid-1.1.1
+ 0.jar mysql-connector-java-5.1.41.jar netty-transport-4.1.54.Final.ja
+ r spring-data-keyvalue-2.4.1.jar hibernate-validator-5.2.4.Final.jar 
+ org.jacoco.agent-0.8.5-runtime.jar spring-data-redis-2.4.1.jar common
+ s-logging-1.2.jar mybatis-3.4.6.jar spring-context-5.3.1.jar slf4j-ap
+ i-1.7.30.jar jackson-datatype-jsr310-2.11.3.jar commons-codec-1.15.ja
+ r log4j-to-slf4j-2.13.3.jar httpcore-4.4.13.jar spring-boot-starter-j
+ dbc-2.4.0.jar javax.activation-api-1.2.0.jar classmate-1.5.1.jar spri
+ ng-jdbc-5.3.1.jar aliyun-java-sdk-core-4.5.1.jar jakarta.el-3.0.3.jar
+  spring-expression-5.3.1.jar logback-core-1.2.3.jar joda-time-2.10.5.
+ jar spring-web-5.3.1.jar spring-oxm-5.3.1.jar spring-boot-starter-log
+ ging-2.4.0.jar reactor-core-3.4.0.jar netty-codec-4.1.54.Final.jar jb
+ oss-logging-3.4.1.Final.jar spring-aop-5.3.1.jar spring-boot-starter-
+ tomcat-2.4.0.jar opentracing-api-0.33.0.jar jackson-module-parameter-
+ names-2.11.3.jar
+Main-Class: 
+

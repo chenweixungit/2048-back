@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axun.game.dao.GameRecordDOMapper">
+  <resultMap id="BaseResultMap" type="com.axun.game.dataObjects.GameRecordDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, end_time, score
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from game_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.axun.game.dataObjects.GameRecordDO">
+    insert into game_record (id, user_id, end_time, 
+      score)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.axun.game.dataObjects.GameRecordDO">
+    insert into game_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axun.game.dataObjects.GameRecordDO">
+    update game_record
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axun.game.dataObjects.GameRecordDO">
+    update game_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
