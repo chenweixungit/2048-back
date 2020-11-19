@@ -68,14 +68,14 @@ public class UserController extends BaseController{
     @RequestMapping(value = "/register",method = {RequestMethod.POST})
     @ResponseBody
     public CommonReturnType uerRegister(String telephone,
-                                        String optCode,
+                                        String otpCode,
                                         String name,
                                         Integer gender,
                                         Integer age,
                                         String password) throws BussinessException{
         String sessionCode = String.valueOf(redisUtil.get(telephone));
         // 判断校验码是否正确
-        if(!StringUtils.equals(optCode,sessionCode)){
+        if(!StringUtils.equals(otpCode,sessionCode)){
             throw new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         // 把数据插入数据库
@@ -86,7 +86,7 @@ public class UserController extends BaseController{
         userModel.setGender(gender);
         userModel.setTelephone(telephone);
         userService.register(userModel);
-        return CommonReturnType.create(null);
+        return CommonReturnType.create("success",null);
     }
 
     /**
@@ -127,7 +127,10 @@ public class UserController extends BaseController{
     @Transactional
     @RequestMapping(value = "/getOtp",method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType getOtp(String telephone){
+    public CommonReturnType getOtp(String telephone) throws BussinessException{
+        if(telephone == null || telephone.equals("")){
+            throw new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
         // 生成随机的六位数验证码
         Random random = new Random();
         int randomInt = random.nextInt(99999);
