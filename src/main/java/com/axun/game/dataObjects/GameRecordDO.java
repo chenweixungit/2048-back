@@ -1,13 +1,12 @@
 package com.axun.game.dataObjects;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GameRecordDO {
     private Integer id;
 
     private Integer userId;
-
-    private Date endTime;
 
     private Integer score;
 
@@ -25,14 +24,6 @@ public class GameRecordDO {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 
     public Integer getScore() {

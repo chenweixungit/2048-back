@@ -1,7 +1,11 @@
 package com.axun.game.dao;
 
 import com.axun.game.dataObjects.GameRecordDO;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public interface GameRecordDOMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface GameRecordDOMapper {
     int updateByPrimaryKeySelective(GameRecordDO record);
 
     int updateByPrimaryKey(GameRecordDO record);
+
+    List<GameRecordDO> selectByUserId(Integer user_id);
 }

@@ -3,6 +3,7 @@ package com.axun.game.controller;
 import com.alibaba.druid.util.StringUtils;
 
 import com.axun.game.controller.viewObjects.UserVO;
+import com.axun.game.dataObjects.GameRecordDO;
 import com.axun.game.error.BussinessException;
 import com.axun.game.error.EnumBusinessError;
 import com.axun.game.response.CommonReturnType;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -40,6 +43,8 @@ public class UserController extends BaseController{
 
     @Autowired
     private SendSmsUtils sendSmsUtils;
+
+
     /**
      * 用户登录
      * @return
@@ -68,14 +73,14 @@ public class UserController extends BaseController{
     @RequestMapping(value = "/register",method = {RequestMethod.POST})
     @ResponseBody
     public CommonReturnType uerRegister(String telephone,
-                                        String optCode,
+                                        String otpCode,
                                         String name,
                                         Integer gender,
                                         Integer age,
                                         String password) throws BussinessException{
         String sessionCode = String.valueOf(redisUtil.get(telephone));
         // 判断校验码是否正确
-        if(!StringUtils.equals(optCode,sessionCode)){
+        if(!StringUtils.equals(otpCode,sessionCode)){
             throw new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         // 把数据插入数据库
@@ -86,7 +91,7 @@ public class UserController extends BaseController{
         userModel.setGender(gender);
         userModel.setTelephone(telephone);
         userService.register(userModel);
-        return CommonReturnType.create(null);
+        return CommonReturnType.create("success",null);
     }
 
     /**
@@ -127,7 +132,10 @@ public class UserController extends BaseController{
     @Transactional
     @RequestMapping(value = "/getOtp",method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType getOtp(String telephone){
+    public CommonReturnType getOtp(String telephone) throws BussinessException{
+        if(telephone == null || telephone.equals("")){
+            throw new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
         // 生成随机的六位数验证码
         Random random = new Random();
         int randomInt = random.nextInt(99999);
@@ -149,4 +157,41 @@ public class UserController extends BaseController{
         return CommonReturnType.create("success",obj);
     }
 
+    /**
+     * 插入游戏记录
+     * @param user_id
+     * @param score
+     * @return
+     * @throws BussinessException
+     */
+    @Transactional
+    @RequestMapping(value = "/addRecord",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType addGameRecord(Integer user_id,Integer score) throws BussinessException{
+        if(user_id == null || score == null ){
+            throw  new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        GameRecordDO gameRecordDO = new GameRecordDO();
+        gameRecordDO.setUserId(user_id);
+        gameRecordDO.setScore(score);
+        userService.addGameRecord(gameRecordDO);
+        return CommonReturnType.create("success",null);
+    }
+
+    /**
+     * 获取游戏记录最大分数
+     * @param user_id
+     * @return
+     * @throws BussinessException
+     */
+    @Transactional
+    @RequestMapping(value = "/getMaxScore",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType getMaxScore(Integer user_id) throws BussinessException{
+        if(user_id == null ){
+            throw  new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        GameRecordDO gameRecordDO = userService.getMaxScore(user_id);
+        return CommonReturnType.create("success",gameRecordDO);
+    }
 }

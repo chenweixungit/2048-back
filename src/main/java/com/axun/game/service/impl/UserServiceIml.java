@@ -2,8 +2,10 @@ package com.axun.game.service.impl;
 
 
 
+import com.axun.game.dao.GameRecordDOMapper;
 import com.axun.game.dao.UserDOMapper;
 import com.axun.game.dao.UserPasswordDOMapper;
+import com.axun.game.dataObjects.GameRecordDO;
 import com.axun.game.dataObjects.UserDO;
 import com.axun.game.dataObjects.UserPasswordDO;
 import com.axun.game.error.BussinessException;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.axun.game.service.model.UserModel;
 
+import java.util.List;
+
 @Component
 public class UserServiceIml implements UserService {
 
@@ -28,6 +32,9 @@ public class UserServiceIml implements UserService {
 
     @Autowired
     private ValidatorImpl validator;
+
+    @Autowired
+    private GameRecordDOMapper gameRecordDOMapper;
     /**
      * 通过id查询用户
      * @param id
@@ -111,6 +118,43 @@ public class UserServiceIml implements UserService {
             throw new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         return convertFromUserDO(userDO);
+    }
+
+    /**
+     * 增加游戏记录
+     * @param gameRecordDO
+     * @throws BussinessException
+     */
+    @Override
+    public void addGameRecord(GameRecordDO gameRecordDO) throws BussinessException {
+        gameRecordDOMapper.insertSelective(gameRecordDO);
+    }
+
+    /**
+     * 获得最大的分数
+     * @param user_id
+     * @return
+     * @throws BussinessException
+     */
+    @Override
+    public GameRecordDO getMaxScore(Integer user_id) throws BussinessException {
+        if(user_id == null){
+            throw new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        List<GameRecordDO> list = gameRecordDOMapper.selectByUserId(user_id);
+        Integer maxScore = 0;
+        if(list == null){
+            throw new BussinessException(EnumBusinessError.UNKNOWN_EXCEPTION);
+        }
+        for(GameRecordDO gameRecordDO : list){
+            if(gameRecordDO.getScore() > maxScore){
+                maxScore = gameRecordDO.getScore();
+            }
+        }
+        GameRecordDO gameRecordDO = new GameRecordDO();
+        gameRecordDO.setScore(maxScore);
+        gameRecordDO.setUserId(user_id);
+        return gameRecordDO;
     }
 
     /**
