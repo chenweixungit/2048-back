@@ -113,6 +113,20 @@
             <version>4.5.1</version>
         </dependency>
 
+        <!--集成SocketIO-->
+        <dependency>
+            <groupId>com.corundumstudio.socketio</groupId>
+            <artifactId>netty-socketio</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

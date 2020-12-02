@@ -31,20 +31,6 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="user_info" domainObjectName="UserDO"
-               enableCountByExample="false"
-               enableDeleteByExample="false"
-               enableUpdateByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="user_password" domainObjectName="UserPasswordDO"
-               enableCountByExample="false"
-               enableDeleteByExample="false"
-               enableUpdateByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
         <table tableName="game_record" domainObjectName="GameRecordDO"
                enableCountByExample="false"
                enableDeleteByExample="false"
@@ -52,5 +38,19 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
+<!--        <table tableName="user_password" domainObjectName="UserPasswordDO"-->
+<!--               enableCountByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--        </table>-->
+<!--        <table tableName="game_record" domainObjectName="GameRecordDO"-->
+<!--               enableCountByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--        </table>-->
     </context>
 </generatorConfiguration>

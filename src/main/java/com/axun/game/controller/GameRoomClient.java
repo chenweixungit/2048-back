@@ -9,7 +9,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.Map;
+
 
 @ServerEndpoint("/chatroom/{token}")
 @Component
@@ -41,8 +41,11 @@ public class GameRoomClient {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         log.info("收到用户{}的新消息{}", token, message);
-//        session.getBasicRemote().sendText("收到消息。" + Math.random()*100);
+        session.getBasicRemote().sendText( "用户："+ message);
         // 正在游戏中
+//        String[] messages = message.split(",");
+//        Integer status = messages[0].charAt(messages[0].length() - 1) - '0';
+
 //        if(isGameing){
 //            // 前端发来游戏结束的请求
 //            if(message){
@@ -61,12 +64,20 @@ public class GameRoomClient {
 //                this.isGameing = true;
 //            }
 //        }
-
+//      0表示请求游戏准备，1表示游戏正在进行，2表示游戏结束
+//      status:0,user_id:16,row1:2 0 0 0,row2:0 0 0 0,row3:0 0 0 0,row4:0 0 0 0
     }
 
     @OnError
     public void onError(Session session, Throwable error) {
         log.info("用户{}链接出现错误", token);
         error.printStackTrace();
+    }
+
+    public static void main(String[] args) {
+        String message = "status:0,user_id:16,row1:2 0 0 0,row2:0 0 0 0,row3:0 0 0 0,row4:0 0 0 0";
+        String[] messages = message.split(",");
+        Integer status = messages[0].charAt(messages[0].length() - 1) - '0';
+        System.out.println(status);
     }
 }

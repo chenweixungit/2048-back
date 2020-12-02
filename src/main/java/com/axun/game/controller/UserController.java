@@ -3,6 +3,7 @@ package com.axun.game.controller;
 import com.alibaba.druid.util.StringUtils;
 
 import com.axun.game.controller.viewObjects.UserVO;
+import com.axun.game.dataObjects.GameRecordDO;
 import com.axun.game.error.BussinessException;
 import com.axun.game.error.EnumBusinessError;
 import com.axun.game.response.CommonReturnType;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -40,6 +43,8 @@ public class UserController extends BaseController{
 
     @Autowired
     private SendSmsUtils sendSmsUtils;
+
+
     /**
      * 用户登录
      * @return
@@ -152,4 +157,41 @@ public class UserController extends BaseController{
         return CommonReturnType.create("success",obj);
     }
 
+    /**
+     * 插入游戏记录
+     * @param user_id
+     * @param score
+     * @return
+     * @throws BussinessException
+     */
+    @Transactional
+    @RequestMapping(value = "/addRecord",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType addGameRecord(Integer user_id,Integer score) throws BussinessException{
+        if(user_id == null || score == null ){
+            throw  new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        GameRecordDO gameRecordDO = new GameRecordDO();
+        gameRecordDO.setUserId(user_id);
+        gameRecordDO.setScore(score);
+        userService.addGameRecord(gameRecordDO);
+        return CommonReturnType.create("success",null);
+    }
+
+    /**
+     * 获取游戏记录最大分数
+     * @param user_id
+     * @return
+     * @throws BussinessException
+     */
+    @Transactional
+    @RequestMapping(value = "/getMaxScore",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType getMaxScore(Integer user_id) throws BussinessException{
+        if(user_id == null ){
+            throw  new BussinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        GameRecordDO gameRecordDO = userService.getMaxScore(user_id);
+        return CommonReturnType.create("success",gameRecordDO);
+    }
 }
